@@ -20,7 +20,7 @@ jobs:
               uses: actions/checkout@v3
 
             - name: Setup PowerShell
-              uses: microsoft/setup-powershell@v1
+              uses: PowerShell/PowerShell-Setup@v1
 
             - name: Import DevKit Module
               shell: pwsh
@@ -31,7 +31,6 @@ jobs:
             - name: Dry-run Install-AllPackages
               shell: pwsh
               run: |
-                  # Run function with Depth=1 for CI speed
                   Install-AllPackages -Depth 1
 
     # -------------------
@@ -64,7 +63,7 @@ jobs:
               uses: actions/checkout@v3
 
             - name: Setup PowerShell
-              uses: microsoft/setup-powershell@v1
+              uses: PowerShell/PowerShell-Setup@v1
 
             - name: Install PowerShellGet module
               shell: pwsh
