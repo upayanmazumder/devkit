@@ -9,7 +9,7 @@ on:
 
 jobs:
     # -------------------
-    # 1️⃣ Test PowerShell module
+    # 1) Test PowerShell module
     # -------------------
     pwsh-test:
         name: Test PowerShell Module
@@ -22,16 +22,18 @@ jobs:
             - name: Import DevKit Module
               shell: pwsh
               run: |
-                  Import-Module ./pwsh/DevKit.psd1
-                  Write-Host "✅ DevKit module imported successfully"
+                  # Import the module or .psm1 to make functions available
+                  Import-Module ./pwsh/DevKit/DevKit.psd1 -Force
+                  Write-Host "Module imported successfully"
 
             - name: Dry-run Install-AllPackages
               shell: pwsh
               run: |
+                  # Call the function
                   Install-AllPackages -Depth 1
 
     # -------------------
-    # 2️⃣ Test Bash scripts
+    # 2) Test Bash scripts
     # -------------------
     bash-test:
         name: Test Bash Scripts
@@ -48,7 +50,7 @@ jobs:
               run: bash/install-all.sh
 
     # -------------------
-    # 3️⃣ Publish PowerShell module to PSGallery
+    # 3) Publish PowerShell module to PSGallery
     # -------------------
     publish-pwsh:
         name: Publish PowerShell Module
@@ -68,10 +70,13 @@ jobs:
               env:
                   PSGALLERY_API_KEY: ${{ secrets.PSGALLERY_API_KEY }}
               run: |
+                  # Import module first
+                  Import-Module ./pwsh/DevKit/DevKit.psd1 -Force
+                  # Publish
                   Publish-Module -Path ./pwsh -NuGetApiKey $env:PSGALLERY_API_KEY -Verbose
 
     # -------------------
-    # 4️⃣ Publish Bash scripts to GitHub release
+    # 4) Publish Bash scripts to GitHub release
     # -------------------
     release-bash:
         name: Publish Bash Scripts
