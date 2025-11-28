@@ -1,14 +1,15 @@
 devkit/
-│
-├── pwsh/
-│   ├── DevKit.psd1
-│   ├── DevKit.psm1
-│   └── Install-AllPackages.ps1
-│
-├── bash/
-│   ├── install-all.sh
-│   └── common.sh
-│
-├── .gitignore
-├── README.md
-└── LICENSE
+├─ .github/
+│  └─ workflows/
+│     └─ publish.yml
+├─ bash/
+│  ├─ common.sh
+│  └─ install-all.sh
+├─ pwsh/
+│  └─ DevKit/            <-- folder must match module name
+│     ├─ DevKit.psd1
+│     ├─ DevKit.psm1
+│     └─ Install-AllPackages.ps1
+├─ LICENSE
+├─ README.md
+└─ structure.txt

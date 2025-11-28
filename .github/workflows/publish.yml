@@ -22,10 +22,10 @@ jobs:
       - name: Load Install-AllPackages script and test
         shell: pwsh
         run: |
-          # Dot-source the script to load functions
-          . ./pwsh/Install-AllPackages.ps1
+          # Dot-source the script
+          . ./pwsh/DevKit/Install-AllPackages.ps1
           Write-Host "Loaded Install-AllPackages.ps1"
-          # Run a dry-run of the main function
+          # Dry-run
           Install-AllPackages -Depth 1
 
   # -------------------
@@ -67,9 +67,9 @@ jobs:
           PSGALLERY_API_KEY: ${{ secrets.PSGALLERY_API_KEY }}
         run: |
           # Dot-source Install-AllPackages if needed
-          . ./pwsh/Install-AllPackages.ps1
-          # Publish the module pointing directly to the .psd1 manifest
-          Publish-Module -Path ./pwsh/DevKit.psd1 -NuGetApiKey $env:PSGALLERY_API_KEY -Verbose
+          . ./pwsh/DevKit/Install-AllPackages.ps1
+          # Publish the module — folder must match module name
+          Publish-Module -Path ./pwsh/DevKit -NuGetApiKey $env:PSGALLERY_API_KEY -Verbose
 
   # -------------------
   # 4) Publish Bash scripts to GitHub release
