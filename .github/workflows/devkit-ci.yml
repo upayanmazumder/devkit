@@ -19,17 +19,13 @@ jobs:
             - name: Checkout repo
               uses: actions/checkout@v3
 
-            - name: Import DevKit Module
+            - name: Load Install-AllPackages script and test
               shell: pwsh
               run: |
-                  # Import the module or .psm1 to make functions available
-                  Import-Module ./pwsh/DevKit/DevKit.psd1 -Force
-                  Write-Host "Module imported successfully"
-
-            - name: Dry-run Install-AllPackages
-              shell: pwsh
-              run: |
-                  # Call the function
+                  # Dot-source the script to load functions
+                  . ./pwsh/Install-AllPackages.ps1
+                  Write-Host "Loaded Install-AllPackages.ps1"
+                  # Run a dry-run of the main function
                   Install-AllPackages -Depth 1
 
     # -------------------
@@ -70,9 +66,9 @@ jobs:
               env:
                   PSGALLERY_API_KEY: ${{ secrets.PSGALLERY_API_KEY }}
               run: |
-                  # Import module first
-                  Import-Module ./pwsh/DevKit/DevKit.psd1 -Force
-                  # Publish
+                  # Dot-source Install-AllPackages if needed
+                  . ./pwsh/Install-AllPackages.ps1
+                  # Publish module
                   Publish-Module -Path ./pwsh -NuGetApiKey $env:PSGALLERY_API_KEY -Verbose
 
     # -------------------
