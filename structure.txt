@@ -1,0 +1,14 @@
+devkit/
+│
+├── pwsh/
+│   ├── DevKit.psd1
+│   ├── DevKit.psm1
+│   └── Install-AllPackages.ps1
+│
+├── bash/
+│   ├── install-all.sh
+│   └── common.sh
+│
+├── .gitignore
+├── README.md
+└── LICENSE
